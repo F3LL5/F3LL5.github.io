@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificación QR</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body { background-color: #f0f2f5; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+    </style>
+</head>
+<body>
+    <script>
+        // 1. Capturamos el texto que viene en la URL después de "?m="
+        const urlParams = new URLSearchParams(window.location.search);
+        let mensaje = urlParams.get('m');
+
+        // 2. Si hay mensaje, lo mostramos. Si no, mostramos un error simple.
+        window.onload = function() {
+            if (mensaje) {
+                // Decodifica el texto (cambia %20 por espacios, etc.)
+                mensaje = decodeURIComponent(mensaje);
+                
+                Swal.fire({
+                    title: 'Aviso Importante',
+                    text: mensaje,
+                    icon: 'info',
+                    confirmButtonText: 'Entendido',
+                    confirmButtonColor: '#007bff',
+                    allowOutsideClick: false
+                });
+            } else {
+                document.body.innerHTML = "<h1>No hay mensaje para mostrar.</h1>";
+            }
+        }
+    </script>
+</body>
+</html>
